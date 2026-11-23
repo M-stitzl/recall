@@ -230,6 +230,10 @@ repository:
 - FSRS parameter optimisation on the personal review log
 - Anki import and export (`.apkg`)
 
+## License
+
+No license is granted. The code is published for reference; all rights are reserved.
+
 ---
 
 Built with [Claude Code](https://claude.com/claude-code).
