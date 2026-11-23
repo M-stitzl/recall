@@ -1,0 +1,91 @@
+[
+  {
+    "course": "Corporate Finance (Beispiel)",
+    "source": "Woche 03/VL03.pdf",
+    "source_ref": "Folie 14",
+    "type": "cloze",
+    "front": "Der WACC gewichtet Eigen- und Fremdkapitalkosten mit ihren {{c1::Marktwerten}}.",
+    "back": "",
+    "extra": "Buchwerte verzerren die Kapitalstruktur.",
+    "tags": [
+      "wacc",
+      "kapitalkosten"
+    ],
+    "priority": "hoch",
+    "week": "Woche 03",
+    "source_kind": "folien",
+    "check": {
+      "ok": true,
+      "issues": []
+    },
+    "format": "cloze",
+    "warum_relevant": "Gewichtung des WACC ist eine typische MC-Frage."
+  },
+  {
+    "course": "Corporate Finance (Beispiel)",
+    "source": "Woche 03/VL03.pdf",
+    "source_ref": "Folie 15",
+    "type": "cloze",
+    "front": "WACC-Formel: {{c1::$$r_{WACC} = \frac{E}{V} r_E + \frac{D}{V} r_D (1 - t)$$}}",
+    "back": "",
+    "extra": "$E$, $D$: Marktwerte von Eigen- und Fremdkapital, $V = E + D$, $t$: Steuersatz.",
+    "tags": [
+      "wacc",
+      "formel"
+    ],
+    "priority": "hoch",
+    "week": "Woche 03",
+    "source_kind": "folien",
+    "check": {
+      "ok": true,
+      "issues": []
+    },
+    "format": "cloze",
+    "warum_relevant": "Formel wird in Zahlenfeld-Aufgaben gebraucht."
+  },
+  {
+    "course": "Corporate Finance (Beispiel)",
+    "source": "Woche 03/VL03.pdf",
+    "source_ref": "Folie 17",
+    "type": "basic",
+    "front": "Warum sinkt der WACC bei steigendem Verschuldungsgrad nicht unbegrenzt?",
+    "back": "Weil mit der Verschuldung die erwarteten Insolvenzkosten steigen und den Steuervorteil irgendwann überwiegen.",
+    "extra": "",
+    "tags": [
+      "wacc",
+      "kapitalstruktur"
+    ],
+    "priority": "mittel",
+    "week": "Woche 03",
+    "source_kind": "folien",
+    "check": {
+      "ok": false,
+      "issues": [
+        "Folie 17 nennt Insolvenzkosten nur als Beispiel, nicht als einzigen Grund"
+      ]
+    },
+    "format": "warum",
+    "warum_relevant": "Zusammenhang Kapitalstruktur und Kapitalkosten ist Kernthema."
+  },
+  {
+    "course": "Corporate Finance (Beispiel)",
+    "source": "Woche 03/VL03.pdf",
+    "source_ref": "Folie 15",
+    "type": "basic",
+    "format": "anwendung",
+    "warum_relevant": "Rechenaufgaben zum WACC kommen als Zahlenfeld-Fragen.",
+    "front": "E = 600, D = 400, r_E = 10 %, r_D = 5 %, t = 30 %. WACC?",
+    "back": "WACC = 0,6 × 10 % + 0,4 × 5 % × (1 − 0,3) = 6,0 % + 1,4 % = 7,4 %.",
+    "extra": "",
+    "tags": [
+      "wacc"
+    ],
+    "priority": "mittel",
+    "week": "Woche 03",
+    "source_kind": "folien",
+    "check": {
+      "ok": true,
+      "issues": []
+    }
+  }
+]

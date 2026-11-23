@@ -1,0 +1,371 @@
+@import "tailwindcss";
+
+/*
+ * Recall – Designsystem
+ *
+ * Welt: Karteikarte und Textmarker. Warmes Papier als Grund, Tinte als Schrift,
+ * Markergelb für alles, was „dran“ ist (Hauptaktion, aufgedeckte Lücke, Auswahl).
+ * Die Navigation ist in Tinte gesetzt und rahmt die Arbeitsfläche.
+ * Signatur: der Kartenstapel von der Seite (components/stack-strip.tsx) – ein Strich
+ * pro Karte, gefärbt nach Lernzustand.
+ *
+ * Zustandsfarben (nur für Lernzustände und Bewertungen, nie als Dekoration):
+ *   again = Nochmal / Lernen, hard = Schwer, good = Gut / Wiederholen, easy = Einfach / Neu
+ */
+
+:root {
+  --background: #f3efe6;
+  --surface: #fbf9f4;
+  --surface-2: #e9e4d8;
+  --foreground: #1c1a15;
+  --muted: #625d51;
+  --border: #d6cfbf;
+  --marker: #f2cc2e;
+  --marker-ink: #1c1a15;
+  --marker-soft: #f6e08a;
+  --shell: #1c1a15;
+  --shell-ink: #f3efe6;
+  --shell-muted: #a59e8d;
+  --again: #b3261e;
+  --hard: #a84d08;
+  --good: #1f6f3b;
+  --easy: #1d5fb8;
+  --warn-soft: #f7e7b4;
+  --warn-text: #5e4303;
+  --shadow: 0 1px 2px rgb(28 26 21 / 0.06), 0 4px 14px -6px rgb(28 26 21 / 0.14);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #16140f;
+    --surface: #1f1c16;
+    --surface-2: #2c2820;
+    --foreground: #ece7da;
+    --muted: #a39c8b;
+    --border: #3a352b;
+    --marker: #f2cc2e;
+    --marker-ink: #1c1a15;
+    --marker-soft: #5a4c10;
+    --shell: #0d0c09;
+    --shell-ink: #ece7da;
+    --shell-muted: #8f8878;
+    --again: #f2867c;
+    --hard: #f0a35e;
+    --good: #6fcf8c;
+    --easy: #7fb0f5;
+    --warn-soft: #3b3110;
+    --warn-text: #f2d98a;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 6px 18px -8px rgb(0 0 0 / 0.6);
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-marker: var(--marker);
+  --color-marker-ink: var(--marker-ink);
+  --color-marker-soft: var(--marker-soft);
+  --color-shell: var(--shell);
+  --color-shell-ink: var(--shell-ink);
+  --color-shell-muted: var(--shell-muted);
+  --color-again: var(--again);
+  --color-hard: var(--hard);
+  --color-good: var(--good);
+  --color-easy: var(--easy);
+  --color-warn-soft: var(--warn-soft);
+  --color-warn-text: var(--warn-text);
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-card: var(--font-card-serif), "Iowan Old Style", Georgia, serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scrollbar-color: var(--border) transparent;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-variant-numeric: tabular-nums;
+  accent-color: var(--foreground);
+  caret-color: var(--foreground);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+::selection {
+  background: var(--marker);
+  color: var(--marker-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+h1,
+h2 {
+  text-wrap: balance;
+}
+
+/* Komponenten in der Tailwind-Ebene „components“, damit Utility-Klassen sie gezielt überschreiben können. */
+@layer components {
+  /* Textlinks: Tinte mit Marker-Unterstreichung */
+  .link {
+    text-decoration: underline;
+    text-decoration-color: var(--marker);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    font-weight: 500;
+  }
+  .link:hover {
+    text-decoration-color: currentColor;
+  }
+
+  /* Bedienelemente */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0 1rem;
+    border-radius: 0.625rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--foreground);
+    font-weight: 550;
+    font-size: 0.9375rem;
+    line-height: 1.2;
+    cursor: pointer;
+    user-select: none;
+    transition:
+      background-color 150ms var(--ease-out-expo),
+      border-color 150ms var(--ease-out-expo),
+      transform 150ms var(--ease-out-expo);
+  }
+  .btn:hover:not(:disabled) {
+    background: var(--surface-2);
+    border-color: color-mix(in srgb, var(--foreground) 35%, var(--border));
+  }
+  .btn:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .btn-primary {
+    background: var(--marker);
+    border-color: color-mix(in srgb, var(--marker-ink) 22%, var(--marker));
+    color: var(--marker-ink);
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--marker) 86%, var(--marker-ink));
+    border-color: color-mix(in srgb, var(--marker-ink) 40%, var(--marker));
+  }
+  .btn-danger {
+    color: var(--again);
+  }
+  .btn-sm {
+    min-height: 2.25rem;
+    padding: 0 0.75rem;
+    font-size: 0.875rem;
+    border-radius: 0.5rem;
+  }
+  /* Mit dem Finger braucht jedes Ziel mindestens 44 px. */
+  @media (pointer: coarse) {
+    .btn-sm {
+      min-height: 2.75rem;
+    }
+  }
+  .btn-icon {
+    width: 2.75rem;
+    padding: 0;
+    border-color: transparent;
+    background: transparent;
+  }
+
+  .field {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: 0.625rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--foreground);
+    font-size: 1rem; /* 16px: verhindert das automatische Zoomen in iOS Safari */
+    transition: border-color 150ms var(--ease-out-expo);
+  }
+  .field:hover {
+    border-color: color-mix(in srgb, var(--foreground) 35%, var(--border));
+  }
+  .field::placeholder {
+    color: var(--muted);
+  }
+  textarea.field {
+    line-height: 1.45;
+    resize: vertical;
+  }
+
+  .label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  /* Erhabene Fläche: nur für die Karteikarte und Formulare, nicht als Seitenraster. */
+  .sheet {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.875rem;
+    box-shadow: var(--shadow);
+  }
+
+  /* Listen: Zeilen mit Haarlinien statt einzelner Kästen */
+  .rows > * + * {
+    border-top: 1px solid var(--border);
+  }
+
+  kbd {
+    display: inline-block;
+    min-width: 1.4rem;
+    padding: 0 0.3rem;
+    border-radius: 0.3rem;
+    border: 1px solid var(--border);
+    border-bottom-width: 2px;
+    background: var(--surface);
+    color: var(--muted);
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    text-align: center;
+  }
+
+  /* Karteninhalt: Lesetext in der Serifenschrift, passend zum Formelsatz */
+  .card-text {
+    font-family: var(--font-card-serif), "Iowan Old Style", Georgia, serif;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    max-width: 34em;
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
+  }
+  .card-text code {
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.3rem;
+    background: var(--surface-2);
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
+    font-size: 0.85em;
+  }
+  .card-text .katex {
+    font-size: 1.05em;
+  }
+  .card-text .katex-display {
+    margin: 0.75rem 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .cloze {
+    border-radius: 0.2rem;
+    padding: 0.05em 0.25em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+  /* Verdeckte Lücke: leere Stelle auf der Karte */
+  .cloze-hidden {
+    color: var(--muted);
+    background: var(--surface-2);
+    box-shadow: inset 0 -2px 0 var(--foreground);
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
+    font-size: 0.85em;
+    font-weight: 600;
+  }
+  /* Aufgedeckte Lücke: mit dem Textmarker angestrichen */
+  .cloze-revealed {
+    background: var(--marker-soft);
+    color: var(--foreground);
+    font-weight: 600;
+  }
+}
+
+/* Zitierter Textabschnitt (Quelle anzeigen) */
+.source-text {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  max-width: 65ch;
+  overflow-wrap: anywhere;
+}
+.source-text h2,
+.source-text h3,
+.source-text h4 {
+  margin: 1.1em 0 0.4em;
+  font-weight: 650;
+  line-height: 1.3;
+}
+.source-text h2 { font-size: 1.125rem; }
+.source-text h3 { font-size: 1.0625rem; }
+.source-text h4 { font-size: 1rem; }
+.source-text > :first-child { margin-top: 0; }
+.source-text p,
+.source-text ul,
+.source-text ol { margin: 0.5em 0; }
+.source-text ul { list-style: disc; padding-left: 1.25em; }
+.source-text ol { list-style: decimal; padding-left: 1.4em; }
+.source-text .md-table { overflow-x: auto; margin: 0.75em 0; }
+.source-text table { border-collapse: collapse; font-size: 0.875rem; }
+.source-text th,
+.source-text td {
+  border: 1px solid var(--border);
+  padding: 0.35em 0.6em;
+  text-align: left;
+  vertical-align: top;
+}
+.source-text th { background: var(--surface-2); font-weight: 600; }
+
+/* Ladezustand */
+.skeleton {
+  border-radius: 0.375rem;
+  background: var(--surface-2);
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
+}
+@keyframes skeleton-pulse {
+  50% {
+    opacity: 0.45;
+  }
+}
+
+/* Der eine gestaltete Moment: die Antwort kommt auf die Karte. */
+.reveal {
+  animation: reveal 220ms var(--ease-out-expo);
+}
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton,
+  .reveal {
+    animation: none;
+  }
+  .btn {
+    transition: none;
+  }
+}

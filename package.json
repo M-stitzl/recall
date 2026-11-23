@@ -1,0 +1,27 @@
+{
+  "name": "recall",
+  "private": true,
+  "packageManager": "pnpm@9.15.9",
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm --filter web build",
+    "test": "pnpm --filter web test",
+    "test:e2e": "pnpm --filter web test:e2e",
+    "lint": "pnpm --filter web lint",
+    "typecheck": "pnpm -r typecheck",
+    "db:start": "supabase start",
+    "db:stop": "supabase stop",
+    "db:reset": "supabase db reset",
+    "db:status": "supabase status",
+    "cards:validate": "pnpm --filter @recall/pipeline validate",
+    "cards:import": "pnpm --filter @recall/pipeline import-notes",
+    "cards:feedback": "pnpm --filter @recall/pipeline feedback",
+    "cards:upload-images": "pnpm --filter @recall/pipeline upload-images",
+    "cards:bild": "pipeline/.venv/Scripts/python pipeline/bildkarten.py",
+    "cards:attach-sources": "pnpm --filter @recall/pipeline attach-sources",
+    "cards:quellen": "pipeline/.venv/Scripts/python pipeline/quellen.py"
+  },
+  "devDependencies": {
+    "supabase": "^2"
+  }
+}

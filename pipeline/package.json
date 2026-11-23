@@ -1,0 +1,25 @@
+{
+  "name": "@recall/pipeline",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "tsx src/validate.ts",
+    "import-notes": "tsx src/import.ts",
+    "feedback": "tsx src/feedback.ts",
+    "typecheck": "tsc --noEmit",
+    "upload-images": "tsx src/upload-images.ts",
+    "attach-sources": "tsx src/attach-sources.ts"
+  },
+  "dependencies": {
+    "@recall/schema": "workspace:*",
+    "@supabase/supabase-js": "^2",
+    "dotenv": "^17",
+    "zod": "^4"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "tsx": "^4",
+    "typescript": "^5"
+  }
+}

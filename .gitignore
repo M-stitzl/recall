@@ -1,0 +1,71 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Recall – was niemals ins Repository gehört
+# ─────────────────────────────────────────────────────────────────────────────
+
+# 1) Geheimnisse und Umgebungsvariablen
+#    Alle .env-Dateien in jedem Ordner; nur die Vorlagen (*.env.example) sind erlaubt.
+.env
+.env.*
+**/.env
+**/.env.*
+!**/.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+secrets.*
+credentials.*
+service-account*.json
+
+# 2) Kursmaterial und alles, was daraus erzeugt wird (Urheberrecht der Hochschule)
+#    kurse/ enthält PDFs, Extrakte, Folienbilder, Prüfungsprofile und Karten-Dateien.
+kurse/
+backups/
+*.pdf
+*.pptx
+*.xlsx
+# Aus der Freigabe erzeugtes Feedback zitiert Karteninhalte
+pipeline/prompts/feedback.md
+
+# 3) Persönliche Daten
+supabase/seed.local.sql
+
+# 4) Deployment- und Werkzeug-Zustand (enthält Projekt-IDs, Tokens oder lokale Pfade)
+.vercel/
+supabase/.branches/
+supabase/.temp/
+.claude/settings.local.json
+.claude/*.local.*
+
+# 5) Abhängigkeiten und Build-Ausgaben
+node_modules/
+.pnpm-store/
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+next-env.d.ts
+
+# 6) Tests
+test-results/
+playwright-report/
+blob-report/
+coverage/
+
+# 7) Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# 8) Betriebssystem und Editoren
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+*.swp
+*.log
+npm-debug.log*
+pnpm-debug.log*

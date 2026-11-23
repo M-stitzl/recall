@@ -1,0 +1,15 @@
+# Nie zu Vercel hochladen: Kursmaterial, Backups, Geheimnisse, lokale Artefakte
+kurse/
+backups/
+**/.env
+**/.env.*
+supabase/seed.local.sql
+supabase/.temp/
+supabase/.branches/
+pipeline/.venv/
+**/__pycache__/
+**/node_modules/
+apps/web/.next/
+apps/web/test-results/
+apps/web/playwright-report/
+.claude/
